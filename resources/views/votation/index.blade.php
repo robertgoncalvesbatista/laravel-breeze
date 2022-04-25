@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Gerenciar usuários') }}
+            {{ __('Gerenciar votação') }}
         </h2>
     </x-slot>
 
@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200 flex items-center justify-between">
                     <p>You're logged in!</p>
-                    <a href="/user/create" class="p-2 bg-green-600 text-white rounded">Criar</a>
+                    <a href="/votation/create" class="p-2 bg-green-600 text-white rounded">Criar</a>
                 </div>
             </div>
 
@@ -23,10 +23,16 @@
                                 #
                             </th>
                             <th scope="col" class="px-6 py-4">
-                                Nome
+                                Empresa
                             </th>
                             <th scope="col" class="px-6 py-4">
-                                Email
+                                CNPJ
+                            </th>
+                            <th scope="col" class="px-6 py-4">
+                                Abertura às
+                            </th>
+                            <th scope="col" class="px-6 py-4">
+                                Encerramento às
                             </th>
 
                             <th scope="col" class="px-6 py-4">
@@ -34,20 +40,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($users as $key => $user)
+                        @foreach($votations as $key => $votation)
                         <tr class="bg-white border-b hover:bg-gray-50">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                 {{$key + 1 }}
                             </th>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                {{$user->name}}
+                                {{$votation->company}}
                             </th>
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                {{$user->email}}
+                                {{$votation->cnpj}}
+                            </th>
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{$votation->opening_at}}
+                            </th>
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{$votation->closing_at}}
                             </th>
                             <th scope="row" class="px-6 py-4 font-medium flex text-gray-900 whitespace-nowrap">
-                                <a href="/user/{{ $user->id }}/edit" class="p-2 bg-blue-500 text-white rounded mx-1">Editar</a>
-                                <form method="POST" class="mx-1" action=" {{ route('user.destroy', $user->id) }}">
+                                <a href="/votation/{{ $votation->id }}/edit" class="p-2 bg-blue-500 text-white rounded mx-1">Editar</a>
+                                <form method="POST" class="mx-1" action=" {{ route('votation.destroy', $votation->id) }}">
                                     @method('DELETE')
                                     @csrf
 

@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Validation\Rules;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 
 class UserController extends Controller
 {
-    public function index(Request $request, Response $response)
+    public function index(Request $request)
     {
-        $user = User::all();
+        $users = User::all();
 
-        return view("user.index", ['users' => $user]);
+        return view("user.index", ['users' => $users]);
     }
 
     public function create()
@@ -26,7 +25,7 @@ class UserController extends Controller
         return view("user.create");
     }
 
-    public function store(Request $request, Response $response)
+    public function store(Request $request)
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -42,17 +41,17 @@ class UserController extends Controller
 
         event(new Registered($user));
 
-        return redirect(RouteServiceProvider::USERS);
+        return redirect(RouteServiceProvider::USER);
     }
 
-    public function edit(Request $request, Response $response, $id)
+    public function edit(Request $request, $id)
     {
         $user = User::find($id);
 
         return view("user.edit", ["user" => $user]);
     }
 
-    public function update(Request $request, Response $response, $id)
+    public function update(Request $request, $id)
     {
         $user = User::where('id', $id)->update([
             "name" => $request->name,
@@ -62,15 +61,15 @@ class UserController extends Controller
 
         event(new Registered($user));
 
-        return redirect(RouteServiceProvider::USERS);
+        return redirect(RouteServiceProvider::USER);
     }
 
-    public function destroy(Request $request, Response $response, $id)
+    public function destroy(Request $request, $id)
     {
         $user = User::find($id);
 
         $user->delete();
 
-        return redirect(RouteServiceProvider::USERS);
+        return redirect(RouteServiceProvider::USER);
     }
 }

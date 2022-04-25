@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Editar usuário') }}
+            {{ __('Editar votação') }}
         </h2>
     </x-slot>
 
@@ -13,36 +13,28 @@
                 </div>
 
                 <div class="p-6 bg-white border-b border-gray-200 mt-4">
-                    <form method="POST" action="{{ route('user.update', $user->id) }}">
+                    <form method="POST" action="{{ route('votation.update', $votation->id) }}">
                         @method('PUT')
                         @csrf
 
-                        <!-- Name -->
                         <div>
-                            <x-label for="name" :value="__('Name')" />
-
-                            <x-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{$user->name}}" required autofocus />
+                            <x-label for="company" :value="__('Empresa')" />
+                            <x-input id="company" class="block mt-1 w-full" type="text" name="company" value="{{$votation->company}}" required />
                         </div>
 
-                        <!-- Email Address -->
                         <div class="mt-4">
-                            <x-label for="email" :value="__('Email')" />
-
-                            <x-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{$user->email}}" required />
+                            <x-label for="cnpj" :value="__('CNPJ')" />
+                            <x-input id="cnpj" class="block mt-1 w-full" type="text" name="cnpj" value="{{$votation->cnpj}}" required />
                         </div>
 
-                        <!-- Password -->
                         <div class="mt-4">
-                            <x-label for="password" :value="__('Password')" />
-
-                            <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
+                            <x-label for="opening_at" :value="__('Abertura às')" />
+                            <x-input id="opening_at" class="block mt-1 w-full" type="datetime-local" name="opening_at" value="{{$votation->opening_at}}" required />
                         </div>
 
-                        <!-- Confirm Password -->
                         <div class="mt-4">
-                            <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                            <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
+                            <x-label for="closing_at" :value="__('Encerramento às')" />
+                            <x-input id="closing_at" class="block mt-1 w-full" type="datetime-local" name="closing_at" value="{{$votation->closing_at}}" required />
                         </div>
 
                         <div class="flex items-center justify-end mt-4">

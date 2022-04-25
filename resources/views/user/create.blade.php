@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="p-6 bg-white border-b border-gray-200 mt-4">
-                    <form method="POST" action="{{ route('users.store') }}">
+                    <form method="POST" action="{{ route('user.store') }}">
                         @csrf
 
                         <!-- Name -->
