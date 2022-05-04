@@ -14,56 +14,42 @@
                 </div>
             </div>
 
-
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
-                <div class="row">
-                    <div class="col-lg-12 margin-tb">
-                        <div class="pull-left">
-                            <h2>Role Management</h2>
-                        </div>
-                        <div class="pull-right">
-                            @can('role-create')
-                            <a class="btn btn-success" href="{{ route('role.create') }}"> Create New Role</a>
-                            @endcan
-                        </div>
-                    </div>
-                </div>
+                <table class="w-full text-sm text-left text-white">
+                    <thead class="text-xs text-white uppercase bg-gray-800">
+                        <tr>
+                            <th scope="col" class="px-6 py-4">
+                                #
+                            </th>
+                            <th scope="col" class="px-6 py-4">
+                                Funções
+                            </th>
+                            <th scope="col" class="px-6 py-4">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($roles as $key => $role)
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{$key + 1 }}
+                            </th>
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{$role->name}}
+                            </th>
+                            <th scope="row" class="px-6 py-4 font-medium flex text-gray-900 whitespace-nowrap">
+                                <a href="/role/{{ $role->id }}/edit" class="p-2 bg-blue-500 text-white rounded mx-1">Editar</a>
+                                <form method="POST" class="mx-1" action=" {{ route('role.destroy', $role->id) }}">
+                                    @method('DELETE')
+                                    @csrf
 
-
-                @if ($message = Session::get('success'))
-                <div class="alert alert-success">
-                    <p>{{ $message }}</p>
-                </div>
-                @endif
-
-
-                <table class="table table-bordered">
-                    <tr>
-                        <th>No</th>
-                        <th>Name</th>
-                        <th width="280px">Action</th>
-                    </tr>
-                    @foreach ($roles as $key => $role)
-                    <tr>
-                        <td>{{ ++$i }}</td>
-                        <td>{{ $role->name }}</td>
-                        <td>
-                            <a class="btn btn-info" href="{{ route('role.show',$role->id) }}">Show</a>
-                            @can('role-edit')
-                            <a class="btn btn-primary" href="{{ route('role.edit',$role->id) }}">Edit</a>
-                            @endcan
-                            @can('role-delete')
-                            {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                            {!! Form::close() !!}
-                            @endcan
-                        </td>
-                    </tr>
-                    @endforeach
+                                    <button type="submit" class="p-2 bg-red-500 text-white rounded">{{ __('Excluir') }}</button>
+                                </form>
+                            </th>
+                        </tr>
+                        @endforeach
+                    </tbody>
                 </table>
-
-
-                {!! $roles->render() !!}
             </div>
         </div>
     </div>

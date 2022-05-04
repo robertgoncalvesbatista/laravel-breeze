@@ -17,7 +17,8 @@
                     </x-nav-link>
                 </div>
 
-                @role("administrador")
+                {{-- @role("Administrador|Moderador") --}}
+                @can("editar votacao")
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
                         {{ __('Users') }}
@@ -41,7 +42,8 @@
                         {{ __('Permissions') }}
                     </x-nav-link>
                 </div>
-                @endrole
+                @endcan
+                {{-- @endrole --}}
             </div>
 
             <!-- Settings Dropdown -->
