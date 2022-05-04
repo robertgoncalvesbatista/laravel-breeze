@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VotationController;
 use App\Http\Controllers\RoleController;
@@ -17,9 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view("welcome");
-});
+Route::get('/', [HomeController::class, "index"]);
 
 Route::middleware(['auth'])->group(function () {
     // Route dashboard
@@ -27,7 +26,7 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::group(["middleware" => "role:administrador|role:moderador"], function () {
+    // Route::group(["middleware" => "role:Administrador|role:Moderador"], function () {
         // Route users
         Route::get('/user', [UserController::class, "index"])
             ->name('user.index');
@@ -73,7 +72,7 @@ Route::middleware(['auth'])->group(function () {
             ->name('permission.edit');
         Route::delete('/permission/{id}', [PermissionController::class, "destroy"])
             ->name('permission.destroy');
-    });
+    // });
 
     // Route votations
     Route::get('/votation', [VotationController::class, "index"])

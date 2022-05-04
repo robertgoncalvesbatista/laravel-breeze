@@ -18,8 +18,20 @@
                         @csrf
 
                         <div>
-                            <x-label for="name" :value="__('Papel')" />
-                            <x-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{$role->name}}" required />
+                            <x-label for="name" :value="__('Função')" />
+                            <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="$role->name" required />
+                        </div>
+
+                        <div>
+                            <x-label for="permissions" :value="__('Permissions')" />
+                            <div class="grid">
+                                @foreach($permission as $value)
+                                <div>
+                                    <input type="checkbox" name="permission[]" id="permission" value="{{$value->name}}">
+                                    <label for="permission">{{$value->name}}</label>
+                                </div>
+                                @endforeach
+                            </div>
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
